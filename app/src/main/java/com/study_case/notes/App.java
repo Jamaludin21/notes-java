@@ -1,4 +1,7 @@
 package com.study_case.notes;
 
-public class App {
+import android.app.Application;
+
+public class App extends Application {
+    // ...
 }

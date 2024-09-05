@@ -1,6 +1,10 @@
 package com.study_case.notes.data.repository;
 
 import android.content.Context;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.LiveData;
+
 import com.study_case.notes.data.dao.NoteDao;
 import com.study_case.notes.data.database.NoteDatabase;
 import com.study_case.notes.data.model.Note;
@@ -15,14 +19,28 @@ public class NoteRepository {
     }
 
     public void insertNote(Note note) {
-        noteDao.insertNote(note);
+        new InsertNoteAsyncTask(noteDao).execute(note);
     }
 
-    public List<Note> getAllNotes() {
+    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
+        private NoteDao noteDao;
+
+        public InsertNoteAsyncTask(NoteDao noteDao) {
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Note... notes) {
+            noteDao.insertNote(notes[0]);
+            return null;
+        }
+    }
+
+    public LiveData<List<Note>> getAllNotes() {
         return noteDao.getAllNotes();
     }
 
     public void deleteNote(int id) {
-        noteDao.deleteNote(id);
+        noteDao.deleteNoteById(id);
     }
 }

@@ -7,13 +7,13 @@ import android.content.Context;
 import java.util.List;
 
 public class GetNotesUseCase {
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
 
     public GetNotesUseCase(Context context) {
         noteRepository = new NoteRepository(context);
     }
 
     public List<Note> execute() {
-        return noteRepository.getAllNotes();
+        return (List<Note>) noteRepository.getAllNotes();
     }
 }

@@ -32,6 +32,11 @@ public class NoteViewModel extends AndroidViewModel {
 
     public void addNote(Note note) {
         addNoteUseCase.execute(note);
+        refreshNotes(); // Add this method
+    }
+
+    public void refreshNotes() {
+        notesLiveData.postValue(getNotesUseCase.execute());
     }
 
     public void deleteNote(int id) {
@@ -39,7 +44,6 @@ public class NoteViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Note>> getNotes() {
-        notesLiveData.setValue(getNotesUseCase.execute());
         return notesLiveData;
     }
 

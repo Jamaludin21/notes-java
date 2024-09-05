@@ -1,11 +1,24 @@
 package com.study_case.notes.data.model;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "notes")
 public class Note {
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "description")
     private String description;
+
+    // Constructor that matches the fields
+    public Note(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     // Getters and setters
     public int getId() {
